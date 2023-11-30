@@ -15,6 +15,7 @@ import Enable from './Enable';
 import DeleteReminder from './DeleteReminder';
 import DisableReminder from './DisableReminders';
 import Disable from './Disable';
+import ViewReminders from './View';
 
 export default function App() {
 
@@ -33,11 +34,9 @@ export default function App() {
     persistUser();
   })
 
-  const token = localStorage.getItem('token');
 
   return (
     <>
-      <Navbar />
       <Routes>
         < Route path="/login" element={<LoginForm />} />
         < Route path="/" element={<Home />} />
@@ -50,6 +49,8 @@ export default function App() {
         <Route path="/disableReminders" element={<DisableReminder />} />
         <Route path="/disable/:id" element={<Disable />} />
         <Route path="/deleteReminders" element={<DeleteReminder />} />
+        < Route path="/view" element={<ViewReminders />} />
+
 
 
 

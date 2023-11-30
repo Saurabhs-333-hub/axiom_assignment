@@ -32,6 +32,7 @@ const SignupForm = () => {
                 <h1 className="text-xl font-bold text-gray-700 mb-4">Reminder App signup</h1>
                 <label className="block mb-2 text-gray-700">Name</label>
                 <input
+                    required
                     type="text"
                     className="w-full p-2 bg-gray-200 border rounded-md text-gray-700"
                     value={name}
@@ -40,6 +41,7 @@ const SignupForm = () => {
 
                 <label className="block mb-2 text-gray-700">Email</label>
                 <input
+                    required
                     type="email"
                     className="w-full p-2 bg-gray-200 border rounded-md text-gray-700"
                     value={email}
@@ -48,6 +50,7 @@ const SignupForm = () => {
 
                 <label className="block mt-4 mb-2 text-gray-700">Password</label>
                 <input
+                    required
                     type="password"
                     className="w-full p-2 bg-gray-200 border rounded-md text-gray-700"
                     value={password}

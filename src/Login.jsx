@@ -31,6 +31,7 @@ const LoginForm = () => {
 
                 <label className="block mb-2 text-gray-700">Email</label>
                 <input
+                    required
                     type="email"
                     className="w-full p-2 bg-gray-200 border rounded-md text-gray-700"
                     value={email}
@@ -39,6 +40,7 @@ const LoginForm = () => {
 
                 <label className="block mt-4 mb-2 text-gray-700">Password</label>
                 <input
+                    required
                     type="password"
                     className="w-full p-2 bg-gray-200 border rounded-md text-gray-700"
                     value={password}

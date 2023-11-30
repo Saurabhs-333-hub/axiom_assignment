@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import appwriteMethods from './dbmethods';
+import { useParams } from 'react-router-dom';
 
 
-const DisableReminder = () => {
+const ViewReminders = () => {
     const [reminders, UpdateReminders] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -14,7 +15,7 @@ const DisableReminder = () => {
             const res = await appwriteMethods.getReminders();
 
             UpdateReminders(res);
-            setLoading(false);
+            setLoading(false)
             console.log(res);
         } catch (error) {
             throw error;
@@ -30,7 +31,7 @@ const DisableReminder = () => {
                 return (
                     loading === true ? <h1>Loading</h1> : <div key={key} className=' rounded-lg p-2 bg-slate-50 m-20 gap-10 flex justify-center items-center'>
                         <h1 className='p-2 rounded-lg bg-slate-800 text-white'>{reminder.desc}</h1>
-                        <button className='p-2 rounded-lg bg-red-700 text-white' onClick={() => navigate(`../disable/${reminder.$id}`)}>Disable</button>
+                        <button className='p-2 rounded-lg bg-green-700 text-white' onClick={() => navigate(`/`)}>Back</button>
                     </div>
                 )
             })}
@@ -38,4 +39,4 @@ const DisableReminder = () => {
     )
 }
 
-export default DisableReminder
+export default ViewReminders

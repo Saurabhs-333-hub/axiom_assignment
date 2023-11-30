@@ -10,6 +10,7 @@ const Home = () => {
             const response = await appwriteMethods.getAccount();
             console.log(response);
             // token = response.$id;
+            localStorage.setItem('name', response.name);
             setUsername(response.email);
             return response;
         } catch (error) {
@@ -35,73 +36,75 @@ const Home = () => {
     const navigate = useNavigate()
     return (
         <>
-            <h1 className="text-xl font-bold text-gray-700 mb-4">Welcome to the remiders application {username}</h1>
-            <h2 className="text-xl font-bold text-gray-700 mb-4">{formattedDate}</h2>
-            <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
-                onClick={
-                    () => {
-                        navigate('/reminders');
+            <div className="w-full flex flex-col gap-2 justify-center h-screen items-center">
+                <h1 className="text-xl font-bold text-gray-700 mb-4">Welcome to the remiders application {localStorage.getItem("name")}</h1>
+                <h2 className="text-xl font-bold text-gray-700 mb-4">{formattedDate}</h2>
+                <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+                    onClick={
+                        () => {
+                            navigate('/setReminder');
+                        }
                     }
-                }
-            >Set Reminder</button>
+                >Set Reminder</button>
 
-            //? Modify Reminder
-            <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
-                onClick={
-                    () => {
-                        navigate('/modify');
-                    }
-                }
-            >Modify Reminder</button>
-            //? Delete Reminder
-            <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
-                onClick={
-                    () => {
-                        navigate('/delete');
-                    }
-                }
-            >Delete Reminder</button>
-            //? Disable Reminder
-            <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
-                onClick={
-                    () => {
-                        navigate('/disable');
-                    }
-                }
-            >Disable Reminder</button>
-            //?Enable Reminder
-            <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
-                onClick={
-                    () => {
-                        navigate('/enable');
-                    }
-                }
-            >Enable Reminder</button>
 
-            //? View Your reminders
-            <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
-                onClick={
-                    () => {
-                        navigate('/view');
+                <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+                    onClick={
+                        () => {
+                            navigate('/updateReminder');
+                        }
                     }
-                }
-            >View Your Reminders</button>
+                >Modify Reminder</button>
 
-            <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
-                onClick={async () => {
-                    await appwriteMethods.logout();
-                    localStorage.setItem('token', null);
+                <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+                    onClick={
+                        () => {
+                            navigate('/deleteReminders');
+                        }
+                    }
+                >Delete Reminder</button>
 
-                    navigate('/login');
-                }}
-            >Logout</button>
+                <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+                    onClick={
+                        () => {
+                            navigate('/disableReminders');
+                        }
+                    }
+                >Disable Reminder</button>
+
+                <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+                    onClick={
+                        () => {
+                            navigate('/enableReminders');
+                        }
+                    }
+                >Enable Reminder</button>
+
+
+                <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+                    onClick={
+                        () => {
+                            navigate('/view');
+                        }
+                    }
+                >View Your Reminders</button>
+
+                <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+                    onClick={async () => {
+                        await appwriteMethods.logout();
+                        localStorage.setItem('token', null);
+
+                        navigate('/login');
+                    }}
+                >Logout</button>
+            </div>
         </>
     )
 }

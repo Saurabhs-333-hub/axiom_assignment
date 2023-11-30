@@ -10,32 +10,15 @@ const UpdateReminder = () => {
     const [date, setDate] = useState('');
     const [select, setSelect] = useState('Birthday');
     const [reminders, UpdateReminders] = useState([]);
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            const res = await appwriteMethods.updateReminder(desc, email, number, sms, date, select);
-            console.log(res);
-        } catch (error) {
-            throw error;
-        }
-    };
-    const navigate = useNavigate()
-    // const handleUpdate = async (event) => {
-    //     event.preventDefault();
-    //     console.log(text)
-    //     try {
-    //         const res = await appwriteMethods.updateReminder(text);
-    //         console.log(res);
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // };
+    const [loading, setLoading] = useState(false);
 
     const getReminders = async (event) => {
         try {
+            setLoading(true);
             const res = await appwriteMethods.getReminders();
 
             UpdateReminders(res);
+            setLoading(false);
             console.log(res);
         } catch (error) {
             throw error;
@@ -44,74 +27,18 @@ const UpdateReminder = () => {
 
     useEffect(() => {
         getReminders();
-    })
+    }, [])
     return (
-        <div>
-            <h1>Set Reminder</h1>
+        <div className='w-full bg-slate-600 h-screen justify-center items-center'>
+            <h1>Update Reminder</h1>
 
-            <form className="bg-white p-10 rounded-lg shadow-lg" onSubmit={handleSubmit}>
-                <label className="block mb-2 text-gray-700">Date</label>
-                <input
-                    required
-                    type="date"
-                    className="w-full p-2 bg-gray-200 border rounded-md text-gray-700"
-                    value={date}
-                    onChange={(event) => setDate(event.target.value)}
-                />
-                <label className="block mb-2 text-gray-700">Subject</label>
-                <select className="w-full p-2 bg-gray-200 border rounded-md text-gray-700" value={select} onChange={
-                    (event) => {
-                        setSelect(event.target.value)
-                    }
-                }>
-                    <option value="Birthday">Birthday</option>
-                    <option value="Anniversary">Anniversary</option>
-                    <option value="Meeting">Meeting</option>
-                    <option value="Other">Other</option>
-                </select>
-                <label className="block mb-2 text-gray-700">Description</label>
-                <textarea
-                    className="w-full p-2 bg-gray-200 border rounded-md text-gray-700"
-                    value={desc}
-                    onChange={(event) => setDesc(event.target.value)}
-                />
-                <label className="block mb-2 text-gray-700">Email Address</label>
-                <input
-                    required
-                    type="email"
-                    className="w-full p-2 bg-gray-200 border rounded-md text-gray-700"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                />
-                <label className="block mb-2 text-gray-700">Contact No.</label>
-                <input
-                    type="number"
-                    className="w-full p-2 bg-gray-200 border rounded-md text-gray-700"
-                    value={number}
-                    onChange={(event) => setNumber(event.target.value)}
-                />
-                <label className="block mb-2 text-gray-700">SMS No.</label>
-                <input
-                    type="number"
-                    className="w-full p-2 bg-gray-200 border rounded-md text-gray-700"
-                    value={sms}
-                    onChange={(event) => setSms(event.target.value)}
-                />
-                <button
-                    type="submit"
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
-                >
-                    Submit
-                </button>
-
-            </form>
             {reminders.map((reminder, key) => {
                 return (
-                    <div key={key}>
-                        <h1 >{reminder.date}</h1>
-                        <NavLink to={{
+                    loading === true ? <h1>Loading</h1> : <div key={key} className=' rounded-lg p-2 bg-slate-50 m-20 gap-10 flex justify-center items-center'>
+                        <h1 className='p-2 rounded-lg bg-slate-800 text-white'>{reminder.desc}</h1>
+                        <Link to={{
                             pathname: `/update/${reminder.$id}`,
-                        }}><button>Update</button></NavLink>
+                        }}><button className='p-2 rounded-lg bg-green-600 text-white'>Update</button></Link>
                     </div>
                 )
             })}

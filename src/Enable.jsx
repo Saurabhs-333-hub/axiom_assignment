@@ -20,15 +20,15 @@ const Enable = () => {
         getReminder();
     })
     return (
-        <div>
-            <h1>{reminders.select}</h1>
-            <pre>{reminders.desc}</pre>
-            <button onClick={() => {
+        <div className='w-full flex flex-col gap-2 justify-center h-screen items-center'>
+            <h1>Subject: {reminders.select}</h1>
+            <pre>Description: {reminders.desc}</pre>
+            <button className='p-2 rounded-lg bg-green-700 text-white' onClick={() => {
                 appwriteMethods.enableReminder(params.id);
                 navigate('/enableReminders')
             }
             }>Enable</button>
-            <button onClick={() => navigate('/enableReminders')}>Back</button>
+            <button className='p-2 rounded-lg bg-blue-700 text-white' onClick={() => navigate('/enableReminders')}>Back</button>
         </div>
     )
 }

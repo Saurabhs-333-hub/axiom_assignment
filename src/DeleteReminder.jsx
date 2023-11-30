@@ -26,10 +26,11 @@ const DeleteReminder = () => {
         <div>
             {reminders.map((reminder, key) => {
                 return (
-                    <div key={key}>
-                        <h1 >{reminder.date}</h1>
-                        <button onClick={() => {
+                    <div className=' flex justify-center items-center gap-2 flex-col' key={key}>
+                        <h1 >{reminder.desc}</h1>
+                        <button className='bg-red-700 rounded-lg p-2 text-white' onClick={() => {
                             appwriteMethods.deleteReminder(reminder.$id);
+                            navigate('/deleteReminders')
                         }}>Delete</button>
                     </div>
                 )

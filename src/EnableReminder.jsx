@@ -6,13 +6,16 @@ import { useParams } from 'react-router-dom';
 
 const EnableReminder = () => {
     const [reminders, UpdateReminders] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate()
     const getReminders = async (event) => {
         try {
+            setLoading(true);
             const res = await appwriteMethods.getReminders();
 
             UpdateReminders(res);
+            setLoading(false)
             console.log(res);
         } catch (error) {
             throw error;
@@ -21,14 +24,14 @@ const EnableReminder = () => {
 
     useEffect(() => {
         getReminders();
-    })
+    }, [])
     return (
         <div>
             {reminders.map((reminder, key) => {
                 return (
-                    <div key={key}>
-                        <h1 >{reminder.date}</h1>
-                        <button onClick={() => navigate(`../enable/${reminder.$id}`)}>Enable</button>
+                    loading === true ? <h1>Loading</h1> : <div key={key} className=' rounded-lg p-2 bg-slate-50 m-20 gap-10 flex justify-center items-center'>
+                        <h1 className='p-2 rounded-lg bg-slate-800 text-white'>{reminder.desc}</h1>
+                        <button className='p-2 rounded-lg bg-green-700 text-white' onClick={() => navigate(`../enable/${reminder.$id}`)}>Enable</button>
                     </div>
                 )
             })}
